@@ -13,13 +13,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 Library Loads
-```{r cars}
+```{r libraries}
 library(tidyverse)
-
+library(rvest)
 ```
 
 
-
+Web scraper, expects a URL fed into it
 ```{r}
 url_reads <- function(x) {
   #declare result as returned dataframe of team batting standards 
