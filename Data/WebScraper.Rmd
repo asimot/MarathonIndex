@@ -1,0 +1,55 @@
+---
+title: "Web Scraper"
+author: "Aaron Simot"
+date: "2/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+Library Loads
+```{r cars}
+library(tidyverse)
+
+```
+
+
+
+```{r}
+url_reads <- function(x) {
+  #declare result as returned dataframe of team batting standards 
+  result <- x %>% 
+    read_html() %>% #read the url string to HTML
+    html_elements('table') %>% #read the elements with reference table
+    html_table() #create table
+  
+  #result was saved as a list with dataframe at index1, pipe that into mutate
+  result <- result[[1]] %>%
+    #adding a year column based on the input URL and extract the year from the URL with regex and sending char to numeric
+    #casting all columns to be characters.  Had merging frames issue where column types did not agree - Aaron 10/22
+    mutate(year = as.numeric(str_sub(x, start = str_locate(x, "\\d\\d\\d\\d"), end = str_locate(x, "standard"))),
+           across(everything(), as.character)) 
+  
+  result #return the result dataframe from URL _x_
+}
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
